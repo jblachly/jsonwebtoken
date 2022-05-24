@@ -53,9 +53,11 @@ pub enum Algorithm {
     RSA1_5,
 
     /// RSA-OAEP using default parameters
+    #[serde(rename = "RSA-OAEP")]
     RSA_OAEP,
 
     /// RSA-OAEP using SHA-256 and MGF1 with SHA-256
+    #[serde(rename = "RSA-OAEP-256")]
     RSA_OAEP_256,
 
     /// AES Key Wrap with default initial value using 128-bit key
@@ -68,18 +70,23 @@ pub enum Algorithm {
     A256KW,
 
     /// Direct use of a shared symmetric key as the CEK
+    #[serde(rename = "dir")]
     Dir,
 
     /// Elliptic Curve Diffie-Hellman Ephemeral Static key agreement using Concat KDF
+    #[serde(rename = "ECDH-ES")]
     ECDH_ES,
 
     /// ECDH-ES using Concat KDF and CEK wrapped with "A128KW"
+    #[serde(rename = "ECDS-ES+A128KW")]
     ECDH_ES_A128KW,
 
     /// ECDH-ES using Concat KDF and CEK wrapped with "A192KW"
+    #[serde(rename = "ECDS-ES+A192KW")]
     ECDH_ES_A192KW,
 
     /// ECDH-ES using Concat KDF and CEK wrapped with "A256KW"
+    #[serde(rename = "ECDS-ES+A256KW")]
     ECDH_ES_A256KW,
 
     /// Key wrapping with AES GCM using 128-bit key
@@ -92,12 +99,15 @@ pub enum Algorithm {
     A256GCMKW,
 
     /// PBES2 with HMAC SHA-256 and "A128KW" wrapping
+    #[serde(rename = "PBES2-HS256+A128KW")]
     PBES2_HS256_A128KW,
 
     /// PBES2 with HMAC SHA-384 and "A192KW" wrapping
+    #[serde(rename = "PBES2-HS384+A192KW")]
     PBES2_HS384_A192KW,
 
     /// PBES2 with HMAC SHA-512 and "A256KW" wrapping
+    #[serde(rename = "PBES2-HS512+A256KW")]
     PBES2_HS512_A256KW,
 }
 
