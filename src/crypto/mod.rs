@@ -4,7 +4,7 @@ use ring::{hmac, signature};
 use crate::algorithms::Algorithm;
 use crate::decoding::{DecodingKey, DecodingKeyKind};
 use crate::encoding::EncodingKey;
-use crate::errors::Result;
+use crate::errors::{new_error, ErrorKind, Result};
 use crate::serialization::{b64_decode, b64_encode};
 
 pub(crate) mod ecdsa;
@@ -40,6 +40,7 @@ pub fn sign(message: &[u8], key: &EncodingKey, algorithm: Algorithm) -> Result<S
         | Algorithm::PS256
         | Algorithm::PS384
         | Algorithm::PS512 => rsa::sign(rsa::alg_to_rsa_signing(algorithm), key.inner(), message),
+        _ => Err(new_error(ErrorKind::InvalidAlgorithmType)),
     }
 }
 
@@ -103,5 +104,6 @@ pub fn verify(
                 }
             }
         }
+        _ => Err(new_error(ErrorKind::InvalidAlgorithmType)),
     }
 }

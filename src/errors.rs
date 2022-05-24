@@ -47,6 +47,8 @@ pub enum ErrorKind {
     RsaFailedSigning,
     /// When the algorithm from string doesn't match the one passed to `from_str`
     InvalidAlgorithmName,
+    /// When an encryption algorithm is selected for signing, or vice-versa
+    InvalidAlgorithmType,
     /// When a key is provided with an invalid format
     InvalidKeyFormat,
 
@@ -97,6 +99,7 @@ impl StdError for Error {
             ErrorKind::ImmatureSignature => None,
             ErrorKind::InvalidAlgorithm => None,
             ErrorKind::InvalidAlgorithmName => None,
+            ErrorKind::InvalidAlgorithmType => None,
             ErrorKind::InvalidKeyFormat => None,
             ErrorKind::Base64(ref err) => Some(err),
             ErrorKind::Json(ref err) => Some(err.as_ref()),
@@ -121,7 +124,8 @@ impl fmt::Display for Error {
             | ErrorKind::ImmatureSignature
             | ErrorKind::InvalidAlgorithm
             | ErrorKind::InvalidKeyFormat
-            | ErrorKind::InvalidAlgorithmName => write!(f, "{:?}", self.0),
+            | ErrorKind::InvalidAlgorithmName
+            | ErrorKind::InvalidAlgorithmType => write!(f, "{:?}", self.0),
             ErrorKind::MissingRequiredClaim(ref c) => write!(f, "Missing required claim: {}", c),
             ErrorKind::InvalidRsaKey(ref msg) => write!(f, "RSA key invalid: {}", msg),
             ErrorKind::Json(ref err) => write!(f, "JSON error: {}", err),
